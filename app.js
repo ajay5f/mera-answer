@@ -3,7 +3,25 @@ async function sendMessage(message) {
   responseElement.innerText = "Thinking...";
 
   try {
-    const response = await fetch('YOUR_BACKEND_URL_HERE/api/chat', {
+    async function sendMessage(message) {
+  const responseElement = document.getElementById('response');
+  responseElement.innerText = "Thinking...";
+
+  try {
+    const response = await fetch('https://mera-answer-backend.onrender.com/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: message })
+    });
+
+    const data = await response.json();
+    responseElement.innerText = data.reply;
+  } catch (err) {
+    console.error('Error:', err);
+    responseElement.innerText = "Error contacting AI. Please try again later.";
+  }
+}
+
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: message })
